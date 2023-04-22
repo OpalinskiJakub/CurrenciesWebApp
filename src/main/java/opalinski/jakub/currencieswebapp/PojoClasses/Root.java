@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Root{
+public class Root {
     private String table;
     private String currency;
     private String code;

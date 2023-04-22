@@ -15,8 +15,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
     CurrencyConversionService currencyConversionService;
 
     @Autowired
-    public WebSocketConfig(CurrencyConversionService currencyConversionService){
-        this.currencyConversionService=currencyConversionService;
+    public WebSocketConfig(CurrencyConversionService currencyConversionService) {
+        this.currencyConversionService = currencyConversionService;
     }
 
 

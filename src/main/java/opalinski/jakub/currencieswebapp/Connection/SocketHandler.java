@@ -17,8 +17,8 @@ public class SocketHandler extends TextWebSocketHandler {
 
     private final CurrencyConversionService currencyConversionService;
 
-    public SocketHandler(CurrencyConversionService currencyConversionService){
-        this.currencyConversionService=currencyConversionService;
+    public SocketHandler(CurrencyConversionService currencyConversionService) {
+        this.currencyConversionService = currencyConversionService;
     }
 
     @Override
