@@ -10,6 +10,12 @@ To start
 ------------
 	mvn spring-boot:run
 
+To run tests
+------------
+	mvn test
+
+Application works on http://localhost:8080/currencies
+
 ![](images/pic_1.png)
 ![](images/pic_3.png)
 
