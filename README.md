@@ -1,7 +1,7 @@
 # CurrenciesWebApp
 
 Simple web application to change currencies with actual data from http://api.nbp.pl/. <br/> 
-Application is based on spring boot
+Application is based on spring boot.
 
 To download
 ------------
@@ -20,7 +20,7 @@ Application works on http://localhost:8080/currencies
 ![](images/pic_1.png)
 ![](images/pic_3.png)
 
-The application is protected against bad data
+The application is protected from invalid data.
 ------------
 ![](images/pic_2.png)
 ![](images/pic_4.png)
