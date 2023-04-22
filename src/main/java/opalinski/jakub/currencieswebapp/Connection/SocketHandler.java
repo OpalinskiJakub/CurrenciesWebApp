@@ -1,6 +1,8 @@
 package opalinski.jakub.currencieswebapp.Connection;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import opalinski.jakub.currencieswebapp.PojoClasses.CurrencyData;
 import opalinski.jakub.currencieswebapp.Services.CurrencyConversionService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
@@ -21,19 +23,11 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
 
-        String currency = message.getPayload().substring(0,3);
-        String amount = message.getPayload().substring(3);
-        if(currency.equals("PLN")){
-            double toDouble = Double.parseDouble(amount);
-            double result = currencyConversionService.PLNtoGBP(toDouble);
-            session.sendMessage(new TextMessage(Double.toString(result)));
-        }else if(currency.equals("GBP")){
-            double toDouble = Double.parseDouble(amount);
-            double result = currencyConversionService.GBPtoPLN(toDouble);
-            session.sendMessage(new TextMessage(Double.toString(result)));
-        }
-
-
+        ObjectMapper mapper = new ObjectMapper();
+        CurrencyData currencyData = mapper.readValue(message.getPayload(), CurrencyData.class);
+        CurrencyData newCurrencyData = currencyConversionService.chooseDestination(currencyData);
+        String newCurrencyDataInJson = mapper.writeValueAsString(newCurrencyData);
+        session.sendMessage(new TextMessage(newCurrencyDataInJson));
     }
 
     @Override

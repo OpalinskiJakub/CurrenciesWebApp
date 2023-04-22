@@ -1,5 +1,4 @@
 const socket = new WebSocket("ws://localhost:8080/app");
-var flag;
 
 function send(){
     var pln = document.getElementById("PLN").value;
@@ -8,8 +7,10 @@ function send(){
             Number(pln);
             if(!(isNaN(pln))){
                 if(!(pln<0)){
-                    flag=0;
-                    socket.send("PLN".concat(pln));
+                    socket.send(JSON.stringify({
+                        amount: pln,
+                        type:"PLN"
+                    }));
                 }else{
                     alert("Enter the positive number")
                 }
@@ -21,8 +22,10 @@ function send(){
             Number(gbp);
             if(!(isNaN(gbp))) {
                 if(!(gbp<0)){
-                    flag=1;
-                    socket.send("GBP".concat(gbp));
+                    socket.send(JSON.stringify({
+                        amount: gbp,
+                        type:"GBP"
+                    }));
                 }else{
                     alert("Enter the positive number")
                 }
@@ -37,11 +40,14 @@ function send(){
 
 
 socket.onmessage = function(event) {
-    if(flag==1){
-        document.getElementById("PLN").value=event.data;
+    var response = JSON.parse(event.data);
+
+    if(response["type"]=='PLN'){
+        document.getElementById("PLN").value=response["amount"] ;
     }
-    if(flag==0){
-        document.getElementById("GPB").value=event.data;
+
+    if(response["type"]=='GBP'){
+        document.getElementById("GPB").value=response["amount"] ;
     }
 };
 
