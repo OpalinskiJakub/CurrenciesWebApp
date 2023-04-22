@@ -1,6 +1,6 @@
 # CurrenciesWebApp
 
-Simple web application to change currencies.
+Simple web application to change currencies with actual data from http://api.nbp.pl/.
 
 To download
 ------------
@@ -10,12 +10,10 @@ To start
 ------------
 	mvn spring-boot:run
 
-
-![](pic_1.png)
-![](pic_3.png)
+![](images/pic_1.png)
+![](images/pic_3.png)
 
 The application is protected against bad data
 ------------
-
-![](pic_2.png)
-![](pic_4.png)
+![](images/pic_2.png)
+![](images/pic_4.png)
