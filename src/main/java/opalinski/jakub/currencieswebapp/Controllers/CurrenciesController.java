@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 @RestController
 public class CurrenciesController {
 
-    private ActualExchangeRateService actualExchangeRateService;
+    private final ActualExchangeRateService actualExchangeRateService;
 
     @Autowired
     public CurrenciesController(ActualExchangeRateService actualExchangeRateService){

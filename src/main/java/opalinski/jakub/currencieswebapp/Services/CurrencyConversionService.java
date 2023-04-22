@@ -1,5 +1,6 @@
 package opalinski.jakub.currencieswebapp.Services;
 
+import opalinski.jakub.currencieswebapp.Exceptions.BadDataException;
 import opalinski.jakub.currencieswebapp.PojoClasses.CurrencyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,15 +18,18 @@ public class CurrencyConversionService {
 
     @Autowired
     public CurrencyConversionService(ActualExchangeRateService actualExchangeRateService) throws IOException {
-        this.actualExchangeRate=actualExchangeRateService.getActualExchangeRate();
+        actualExchangeRate=actualExchangeRateService.getActualExchangeRate();
     }
 
     public CurrencyConversionService(double actualExchangeRateForTests) {
-        this.actualExchangeRate=actualExchangeRateForTests;
+        actualExchangeRate=actualExchangeRateForTests;
     }
 
 
-    public CurrencyData chooseDestination(CurrencyData currencyData) throws IOException {
+    public CurrencyData chooseDestination(CurrencyData currencyData) throws IOException, BadDataException {
+        if(Double.parseDouble(currencyData.getAmount())<0){
+            throw new BadDataException("Negative number");
+        }
         if(currencyData.getType().equals("PLN")) {
             double toDouble = Double.parseDouble(currencyData.getAmount());
             double result = CurrencyConversionService.PLNtoGBP(toDouble);
@@ -40,13 +44,13 @@ public class CurrencyConversionService {
         return null;
     }
 
-    public static double PLNtoGBP(double value) throws IOException {
+    public static double GBPtoPLN(double value) throws IOException {
         DecimalFormat change = new DecimalFormat("#.##");
         double result = value*actualExchangeRate;
         return Double.parseDouble(change.format(result));
     }
 
-    public static double GBPtoPLN(double value) throws IOException {
+    public static double PLNtoGBP(double value) throws IOException {
         DecimalFormat change = new DecimalFormat("#.##");
         double result = value/actualExchangeRate;
         return Double.parseDouble(change.format(result));
@@ -54,7 +58,7 @@ public class CurrencyConversionService {
 
     public double getActualExchangeRate(){
         DecimalFormat change = new DecimalFormat("#.##");
-        double result = this.actualExchangeRate;
+        double result = actualExchangeRate;
         return result;
     }
 }

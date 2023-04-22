@@ -2,6 +2,7 @@ package opalinski.jakub.currencieswebapp.Connection;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import opalinski.jakub.currencieswebapp.Exceptions.BadDataException;
 import opalinski.jakub.currencieswebapp.PojoClasses.CurrencyData;
 import opalinski.jakub.currencieswebapp.Services.CurrencyConversionService;
 import org.springframework.stereotype.Component;
@@ -14,14 +15,14 @@ import java.io.IOException;
 @Component
 public class SocketHandler extends TextWebSocketHandler {
 
-    private CurrencyConversionService currencyConversionService;
+    private final CurrencyConversionService currencyConversionService;
 
     public SocketHandler(CurrencyConversionService currencyConversionService){
         this.currencyConversionService=currencyConversionService;
     }
 
     @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, BadDataException {
 
         ObjectMapper mapper = new ObjectMapper();
         CurrencyData currencyData = mapper.readValue(message.getPayload(), CurrencyData.class);
