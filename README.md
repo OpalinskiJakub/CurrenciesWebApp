@@ -1,7 +1,7 @@
 # CurrenciesWebApp
 
 Simple web application to change currencies with actual data from http://api.nbp.pl/. <br/> 
-Application is based on spring boot.
+Application is based on Spring Boot.
 
 To download
 ------------
